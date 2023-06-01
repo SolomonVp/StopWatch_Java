@@ -15,12 +15,27 @@ public class MainActivity extends AppCompatActivity {
     private int seconds = 0;
     private boolean isRunning = false;
 
+    private boolean wasRunning = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         textViewTimer = findViewById(R.id.textViewTimer);
         runTimer();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        wasRunning = isRunning;
+        isRunning = false;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        isRunning = wasRunning;
     }
 
     public void onClickStartTimer(View view) {
